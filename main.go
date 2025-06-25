@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
 	"fmt"
 	"log"
 	"net"
@@ -12,6 +13,7 @@ import (
 	"github.com/anatolio-deb/picovpnd/core"
 	pb "github.com/anatolio-deb/picovpnd/grpc"
 	"github.com/anatolio-deb/picovpnd/ip"
+	"golang.org/x/crypto/acme/autocert"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -75,14 +77,35 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	names, err := net.LookupAddr(ip)
+	if err != nil || len(names) == 0 {
+		log.Fatalf("failed to lookup domain name for IP %s: %v", ip, err)
+	} else {
+		log.Printf("domain name for IP %s: %s", ip, names[0])
+	}
+
 	lis, err := net.Listen("tcp", ":0")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	log.Printf("listening on %s", lis.Addr().String())
 
+	m := &autocert.Manager{
+		Cache:      autocert.DirCache("certs"),
+		Prompt:     autocert.AcceptTOS,
+		Email:      os.Getenv("AUTOCERT_EMAIL"),
+		HostPolicy: autocert.HostWhitelist(names[0]),
+	}
+	cert, err := m.GetCertificate(&tls.ClientHelloInfo{
+		ServerName: names[0],
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	// Create tls based credential.
-	creds, err := credentials.NewServerTLSFromFile(certFile, keyFile)
+	creds := credentials.NewServerTLSFromCert(cert)
 	if err != nil {
 		log.Fatalf("failed to create credentials: %v", err)
 	}
@@ -93,15 +116,15 @@ func main() {
 	// Register EchoServer on the server.
 	pb.RegisterOpenConnectServiceServer(s, &server{})
 
-	certPEM, err := os.ReadFile(certFile)
-	if err != nil {
-		log.Fatalf("failed to read cert file: %v", err)
-	}
+	// certPEM, err := os.ReadFile(certFile)
+	// if err != nil {
+	// 	log.Fatalf("failed to read cert file: %v", err)
+	// }
 
 	daemon := api.Daemon{
-		Address: ip,
+		Address: names[0],
 		Port:    lis.Addr().(*net.TCPAddr).Port,
-		CertPEM: certPEM,
+		CertPEM: cert.Certificate[0],
 		// KeyPem:  key,
 	}
 

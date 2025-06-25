@@ -3,6 +3,7 @@ Description=PicoVPN daemon service
 After=network.target
 
 [Service]
+Environment="AUTOCERT_EMAIL=nikiforova693@gmail.com"
 Type=simple
 ExecStart=/usr/local/bin/picovpnd
 Restart=on-failure
