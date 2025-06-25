@@ -9,7 +9,6 @@ import (
 	"os"
 
 	"github.com/anatolio-deb/picovpnd/api"
-	"github.com/anatolio-deb/picovpnd/auth"
 	"github.com/anatolio-deb/picovpnd/core"
 	pb "github.com/anatolio-deb/picovpnd/grpc"
 	"github.com/anatolio-deb/picovpnd/ip"
@@ -73,10 +72,10 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to get public IP: %v", err)
 	}
-	err = auth.GenerateSelfSignedCert(certFile, keyFile, []string{ip})
-	if err != nil {
-		log.Fatal(err)
-	}
+	// err = auth.GenerateSelfSignedCert(certFile, keyFile, []string{ip})
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	names, err := net.LookupAddr(ip)
 	if err != nil || len(names) == 0 {
@@ -84,12 +83,6 @@ func main() {
 	} else {
 		log.Printf("domain name for IP %s: %s", ip, names[0])
 	}
-
-	lis, err := net.Listen("tcp", ":0")
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
-	}
-	log.Printf("listening on %s", lis.Addr().String())
 
 	m := &autocert.Manager{
 		Cache:      autocert.DirCache("certs"),
@@ -120,6 +113,12 @@ func main() {
 	// if err != nil {
 	// 	log.Fatalf("failed to read cert file: %v", err)
 	// }
+
+	lis, err := net.Listen("tcp", ":0")
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+	log.Printf("listening on %s", lis.Addr().String())
 
 	daemon := api.Daemon{
 		Address: names[0],
