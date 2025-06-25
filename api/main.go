@@ -3,8 +3,10 @@ package api
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
 
 type Daemon struct {
@@ -20,8 +22,16 @@ func RegisterSelf(daemon Daemon) {
 		log.Println("failed to marshal daemon:", err)
 		return
 	}
+	req, err := http.NewRequest(http.MethodPost, "https://picovpn.ru/api/daemons", bytes.NewBuffer(b))
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	req.Header.Set("Authorization", fmt.Sprintf("X-Daemon: %s", os.Getenv("TELEGRAM_BOT_TOKEN")))
 
-	resp, err := http.Post("https://picovpn.ru/api/daemons", "application/json", bytes.NewBuffer(b))
+	// resp, err := http.Post("https://picovpn.ru/api/daemons", "application/json", bytes.NewBuffer(b))
+
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		log.Println("failed to send request:", err)
 		return
