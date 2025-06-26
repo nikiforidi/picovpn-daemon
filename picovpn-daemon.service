@@ -6,7 +6,7 @@ After=network.target
 Environment="AUTOCERT_EMAIL=nikiforova693@gmail.com"
 Environment="TELEGRAM_BOT_TOKEN=7602027535:AAGrPptEC__CbwGqT-6vFpc-SdnEBAAtiSY"
 Type=simple
-ExecStart=/usr/local/bin/picovpnd
+ExecStart=/usr/local/bin/picovpn-daemon
 Restart=on-failure
 
 [Install]
