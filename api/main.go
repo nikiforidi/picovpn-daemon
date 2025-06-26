@@ -27,7 +27,7 @@ func RegisterSelf(daemon Daemon) {
 		log.Println(err)
 		return
 	}
-	req.Header.Set("Authorization", fmt.Sprintf("X-Daemon-Key %s", os.Getenv("TELEGRAM_BOT_TOKEN")))
+	req.Header.Add("Authorization", fmt.Sprintf("X-Daemon-Key %s", os.Getenv("TELEGRAM_BOT_TOKEN")))
 
 	// resp, err := http.Post("https://picovpn.ru/api/daemons", "application/json", bytes.NewBuffer(b))
 
