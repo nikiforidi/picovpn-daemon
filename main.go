@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"crypto/tls"
 	"fmt"
 	"log"
 	"net"
@@ -11,14 +10,8 @@ import (
 	"github.com/anatolio-deb/picovpnd/api"
 	"github.com/anatolio-deb/picovpnd/core"
 	pb "github.com/anatolio-deb/picovpnd/grpc"
-	"golang.org/x/crypto/acme/autocert"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
-)
-
-const (
-	certFile = "/etc/ssl/certs/cert.pem"
-	keyFile  = "/etc/ssl/private/key.pem"
 )
 
 // server is used to implement helloworld.GreeterServer.
@@ -68,21 +61,13 @@ func (s *server) UserChangePassword(context.Context, *pb.UserChangePasswordReque
 // https://github.com/grpc/grpc-go/blob/master/examples/features/encryption/TLS/server/main.go
 func main() {
 	host := os.Getenv("DAEMON_HOST")
-	m := &autocert.Manager{
-		Cache:      autocert.DirCache("certs"),
-		Prompt:     autocert.AcceptTOS,
-		Email:      os.Getenv("AUTOCERT_EMAIL"),
-		HostPolicy: autocert.HostWhitelist(host),
-	}
-	cert, err := m.GetCertificate(&tls.ClientHelloInfo{
-		ServerName: host,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
+	cert := fmt.Sprintf("/etc/letsencrypt/live/%s/fullchain.pem", host)
 
 	// Create tls based credential.
-	creds := credentials.NewServerTLSFromCert(cert)
+	creds, err := credentials.NewServerTLSFromFile(
+		cert,
+		fmt.Sprintf("/etc/letsencrypt/live/%s/privkey.pem", host),
+	)
 	if err != nil {
 		log.Fatalf("failed to create credentials: %v", err)
 	}
@@ -93,10 +78,10 @@ func main() {
 	// Register EchoServer on the server.
 	pb.RegisterOpenConnectServiceServer(s, &server{})
 
-	// certPEM, err := os.ReadFile(certFile)
-	// if err != nil {
-	// 	log.Fatalf("failed to read cert file: %v", err)
-	// }
+	certPEM, err := os.ReadFile(cert)
+	if err != nil {
+		log.Fatalf("failed to read cert file: %v", err)
+	}
 
 	lis, err := net.Listen("tcp", ":0")
 	if err != nil {
@@ -107,7 +92,7 @@ func main() {
 	daemon := api.Daemon{
 		Address: host,
 		Port:    lis.Addr().(*net.TCPAddr).Port,
-		CertPEM: cert.Certificate[0],
+		CertPEM: certPEM,
 		// KeyPem:  key,
 	}
 
