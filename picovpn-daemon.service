@@ -3,7 +3,6 @@ Description=PicoVPN daemon service
 After=network.target
 
 [Service]
-Environment="AUTOCERT_EMAIL=nikiforova693@gmail.com"
 Environment="TELEGRAM_BOT_TOKEN=7602027535:AAGrPptEC__CbwGqT-6vFpc-SdnEBAAtiSY"
 Environment="DAEMON_HOST=finland1-picovpn.ru"
 Type=simple
