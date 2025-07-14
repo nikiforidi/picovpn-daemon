@@ -19,12 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OpenConnectService_UserAdd_FullMethodName            = "/helloworld.OpenConnectService/UserAdd"
-	OpenConnectService_UserLock_FullMethodName           = "/helloworld.OpenConnectService/UserLock"
-	OpenConnectService_UserUnlock_FullMethodName         = "/helloworld.OpenConnectService/UserUnlock"
-	OpenConnectService_UserDelete_FullMethodName         = "/helloworld.OpenConnectService/UserDelete"
-	OpenConnectService_UserChangePassword_FullMethodName = "/helloworld.OpenConnectService/UserChangePassword"
-	OpenConnectService_GetCert_FullMethodName            = "/helloworld.OpenConnectService/GetCert"
+	OpenConnectService_UserAdd_FullMethodName    = "/picopvnd.OpenConnectService/UserAdd"
+	OpenConnectService_UserLock_FullMethodName   = "/picopvnd.OpenConnectService/UserLock"
+	OpenConnectService_UserUnlock_FullMethodName = "/picopvnd.OpenConnectService/UserUnlock"
+	OpenConnectService_UserDelete_FullMethodName = "/picopvnd.OpenConnectService/UserDelete"
 )
 
 // OpenConnectServiceClient is the client API for OpenConnectService service.
@@ -35,8 +33,6 @@ type OpenConnectServiceClient interface {
 	UserLock(ctx context.Context, in *UserLockRequest, opts ...grpc.CallOption) (*Response, error)
 	UserUnlock(ctx context.Context, in *UserUnlockRequest, opts ...grpc.CallOption) (*Response, error)
 	UserDelete(ctx context.Context, in *UserDeleteRequest, opts ...grpc.CallOption) (*Response, error)
-	UserChangePassword(ctx context.Context, in *UserChangePasswordRequest, opts ...grpc.CallOption) (*Response, error)
-	GetCert(ctx context.Context, in *AuthenticateRequest, opts ...grpc.CallOption) (*CertResponse, error)
 }
 
 type openConnectServiceClient struct {
@@ -87,26 +83,6 @@ func (c *openConnectServiceClient) UserDelete(ctx context.Context, in *UserDelet
 	return out, nil
 }
 
-func (c *openConnectServiceClient) UserChangePassword(ctx context.Context, in *UserChangePasswordRequest, opts ...grpc.CallOption) (*Response, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Response)
-	err := c.cc.Invoke(ctx, OpenConnectService_UserChangePassword_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *openConnectServiceClient) GetCert(ctx context.Context, in *AuthenticateRequest, opts ...grpc.CallOption) (*CertResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CertResponse)
-	err := c.cc.Invoke(ctx, OpenConnectService_GetCert_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // OpenConnectServiceServer is the server API for OpenConnectService service.
 // All implementations must embed UnimplementedOpenConnectServiceServer
 // for forward compatibility.
@@ -115,8 +91,6 @@ type OpenConnectServiceServer interface {
 	UserLock(context.Context, *UserLockRequest) (*Response, error)
 	UserUnlock(context.Context, *UserUnlockRequest) (*Response, error)
 	UserDelete(context.Context, *UserDeleteRequest) (*Response, error)
-	UserChangePassword(context.Context, *UserChangePasswordRequest) (*Response, error)
-	GetCert(context.Context, *AuthenticateRequest) (*CertResponse, error)
 	mustEmbedUnimplementedOpenConnectServiceServer()
 }
 
@@ -138,12 +112,6 @@ func (UnimplementedOpenConnectServiceServer) UserUnlock(context.Context, *UserUn
 }
 func (UnimplementedOpenConnectServiceServer) UserDelete(context.Context, *UserDeleteRequest) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserDelete not implemented")
-}
-func (UnimplementedOpenConnectServiceServer) UserChangePassword(context.Context, *UserChangePasswordRequest) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UserChangePassword not implemented")
-}
-func (UnimplementedOpenConnectServiceServer) GetCert(context.Context, *AuthenticateRequest) (*CertResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCert not implemented")
 }
 func (UnimplementedOpenConnectServiceServer) mustEmbedUnimplementedOpenConnectServiceServer() {}
 func (UnimplementedOpenConnectServiceServer) testEmbeddedByValue()                            {}
@@ -238,47 +206,11 @@ func _OpenConnectService_UserDelete_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OpenConnectService_UserChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserChangePasswordRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OpenConnectServiceServer).UserChangePassword(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OpenConnectService_UserChangePassword_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OpenConnectServiceServer).UserChangePassword(ctx, req.(*UserChangePasswordRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OpenConnectService_GetCert_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AuthenticateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OpenConnectServiceServer).GetCert(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OpenConnectService_GetCert_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OpenConnectServiceServer).GetCert(ctx, req.(*AuthenticateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // OpenConnectService_ServiceDesc is the grpc.ServiceDesc for OpenConnectService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var OpenConnectService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "helloworld.OpenConnectService",
+	ServiceName: "picopvnd.OpenConnectService",
 	HandlerType: (*OpenConnectServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -296,14 +228,6 @@ var OpenConnectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserDelete",
 			Handler:    _OpenConnectService_UserDelete_Handler,
-		},
-		{
-			MethodName: "UserChangePassword",
-			Handler:    _OpenConnectService_UserChangePassword_Handler,
-		},
-		{
-			MethodName: "GetCert",
-			Handler:    _OpenConnectService_GetCert_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

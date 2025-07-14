@@ -52,12 +52,6 @@ func (s *server) UserDelete(context.Context, *pb.UserDeleteRequest) (*pb.Respons
 	}, fmt.Errorf("not implemented")
 }
 
-func (s *server) UserChangePassword(context.Context, *pb.UserChangePasswordRequest) (*pb.Response, error) {
-	return &pb.Response{
-		Error: "Not implemented",
-	}, fmt.Errorf("not implemented")
-}
-
 // https://github.com/grpc/grpc-go/blob/master/examples/features/encryption/TLS/server/main.go
 func main() {
 	host := os.Getenv("DAEMON_HOST")

@@ -1,25 +1,18 @@
 syntax = "proto3";
 
 option go_package = "github.com/anatolio-deb/picovpnd/picovpnd";
-package helloworld;
+package picopvnd;
 
 service OpenConnectService {
   rpc UserAdd (UserAddRequest) returns (Response) {}
   rpc UserLock (UserLockRequest) returns (Response) {}
   rpc UserUnlock (UserUnlockRequest) returns (Response) {}
   rpc UserDelete (UserDeleteRequest) returns (Response) {}
-  rpc UserChangePassword (UserChangePasswordRequest) returns (Response) {}
-  rpc GetCert (AuthenticateRequest) returns (CertResponse) {}
-}
-
-message CertResponse {
-  string cert = 1;
 }
 
 message UserAddRequest {
   string username = 1;
   string password = 2;
-  string token = 3; // Token for authentication
 }
 
 message Response {
@@ -28,29 +21,16 @@ message Response {
 
 message UserLockRequest {
   string username = 1;
-  string token = 3; // Token for authentication
 
 }
 
 message UserUnlockRequest {
   string username = 1;
-  string token = 3; // Token for authentication
 
 }
 
 message UserDeleteRequest {
   string username = 1;
-  string token = 3; // Token for authentication
 
 }
 
-message UserChangePasswordRequest {
-  string username = 1;
-  string password = 2;
-  string token = 3; // Token for authentication
-}
-
-message AuthenticateRequest {
-  string signature = 1; // Token for authentication
-  string timestamp = 2; // Timestamp for the request
-}

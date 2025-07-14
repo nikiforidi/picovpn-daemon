@@ -21,62 +21,17 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type CertResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Cert          string                 `protobuf:"bytes,1,opt,name=cert,proto3" json:"cert,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *CertResponse) Reset() {
-	*x = CertResponse{}
-	mi := &file_grpc_picovpnd_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *CertResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CertResponse) ProtoMessage() {}
-
-func (x *CertResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_grpc_picovpnd_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CertResponse.ProtoReflect.Descriptor instead.
-func (*CertResponse) Descriptor() ([]byte, []int) {
-	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *CertResponse) GetCert() string {
-	if x != nil {
-		return x.Cert
-	}
-	return ""
-}
-
 type UserAddRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
 	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
-	Token         string                 `protobuf:"bytes,3,opt,name=token,proto3" json:"token,omitempty"` // Token for authentication
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserAddRequest) Reset() {
 	*x = UserAddRequest{}
-	mi := &file_grpc_picovpnd_proto_msgTypes[1]
+	mi := &file_grpc_picovpnd_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -88,7 +43,7 @@ func (x *UserAddRequest) String() string {
 func (*UserAddRequest) ProtoMessage() {}
 
 func (x *UserAddRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_grpc_picovpnd_proto_msgTypes[1]
+	mi := &file_grpc_picovpnd_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -101,7 +56,7 @@ func (x *UserAddRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserAddRequest.ProtoReflect.Descriptor instead.
 func (*UserAddRequest) Descriptor() ([]byte, []int) {
-	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{1}
+	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *UserAddRequest) GetUsername() string {
@@ -118,13 +73,6 @@ func (x *UserAddRequest) GetPassword() string {
 	return ""
 }
 
-func (x *UserAddRequest) GetToken() string {
-	if x != nil {
-		return x.Token
-	}
-	return ""
-}
-
 type Response struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Error         string                 `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
@@ -134,7 +82,7 @@ type Response struct {
 
 func (x *Response) Reset() {
 	*x = Response{}
-	mi := &file_grpc_picovpnd_proto_msgTypes[2]
+	mi := &file_grpc_picovpnd_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -146,7 +94,7 @@ func (x *Response) String() string {
 func (*Response) ProtoMessage() {}
 
 func (x *Response) ProtoReflect() protoreflect.Message {
-	mi := &file_grpc_picovpnd_proto_msgTypes[2]
+	mi := &file_grpc_picovpnd_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -159,7 +107,7 @@ func (x *Response) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Response.ProtoReflect.Descriptor instead.
 func (*Response) Descriptor() ([]byte, []int) {
-	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{2}
+	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Response) GetError() string {
@@ -172,14 +120,13 @@ func (x *Response) GetError() string {
 type UserLockRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	Token         string                 `protobuf:"bytes,3,opt,name=token,proto3" json:"token,omitempty"` // Token for authentication
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserLockRequest) Reset() {
 	*x = UserLockRequest{}
-	mi := &file_grpc_picovpnd_proto_msgTypes[3]
+	mi := &file_grpc_picovpnd_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -191,7 +138,7 @@ func (x *UserLockRequest) String() string {
 func (*UserLockRequest) ProtoMessage() {}
 
 func (x *UserLockRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_grpc_picovpnd_proto_msgTypes[3]
+	mi := &file_grpc_picovpnd_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -204,7 +151,7 @@ func (x *UserLockRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserLockRequest.ProtoReflect.Descriptor instead.
 func (*UserLockRequest) Descriptor() ([]byte, []int) {
-	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{3}
+	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *UserLockRequest) GetUsername() string {
@@ -214,24 +161,16 @@ func (x *UserLockRequest) GetUsername() string {
 	return ""
 }
 
-func (x *UserLockRequest) GetToken() string {
-	if x != nil {
-		return x.Token
-	}
-	return ""
-}
-
 type UserUnlockRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	Token         string                 `protobuf:"bytes,3,opt,name=token,proto3" json:"token,omitempty"` // Token for authentication
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserUnlockRequest) Reset() {
 	*x = UserUnlockRequest{}
-	mi := &file_grpc_picovpnd_proto_msgTypes[4]
+	mi := &file_grpc_picovpnd_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -243,7 +182,7 @@ func (x *UserUnlockRequest) String() string {
 func (*UserUnlockRequest) ProtoMessage() {}
 
 func (x *UserUnlockRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_grpc_picovpnd_proto_msgTypes[4]
+	mi := &file_grpc_picovpnd_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -256,7 +195,7 @@ func (x *UserUnlockRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserUnlockRequest.ProtoReflect.Descriptor instead.
 func (*UserUnlockRequest) Descriptor() ([]byte, []int) {
-	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{4}
+	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *UserUnlockRequest) GetUsername() string {
@@ -266,24 +205,16 @@ func (x *UserUnlockRequest) GetUsername() string {
 	return ""
 }
 
-func (x *UserUnlockRequest) GetToken() string {
-	if x != nil {
-		return x.Token
-	}
-	return ""
-}
-
 type UserDeleteRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	Token         string                 `protobuf:"bytes,3,opt,name=token,proto3" json:"token,omitempty"` // Token for authentication
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserDeleteRequest) Reset() {
 	*x = UserDeleteRequest{}
-	mi := &file_grpc_picovpnd_proto_msgTypes[5]
+	mi := &file_grpc_picovpnd_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -295,7 +226,7 @@ func (x *UserDeleteRequest) String() string {
 func (*UserDeleteRequest) ProtoMessage() {}
 
 func (x *UserDeleteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_grpc_picovpnd_proto_msgTypes[5]
+	mi := &file_grpc_picovpnd_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -308,7 +239,7 @@ func (x *UserDeleteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserDeleteRequest.ProtoReflect.Descriptor instead.
 func (*UserDeleteRequest) Descriptor() ([]byte, []int) {
-	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{5}
+	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *UserDeleteRequest) GetUsername() string {
@@ -318,164 +249,29 @@ func (x *UserDeleteRequest) GetUsername() string {
 	return ""
 }
 
-func (x *UserDeleteRequest) GetToken() string {
-	if x != nil {
-		return x.Token
-	}
-	return ""
-}
-
-type UserChangePasswordRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
-	Token         string                 `protobuf:"bytes,3,opt,name=token,proto3" json:"token,omitempty"` // Token for authentication
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *UserChangePasswordRequest) Reset() {
-	*x = UserChangePasswordRequest{}
-	mi := &file_grpc_picovpnd_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *UserChangePasswordRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UserChangePasswordRequest) ProtoMessage() {}
-
-func (x *UserChangePasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_grpc_picovpnd_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UserChangePasswordRequest.ProtoReflect.Descriptor instead.
-func (*UserChangePasswordRequest) Descriptor() ([]byte, []int) {
-	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *UserChangePasswordRequest) GetUsername() string {
-	if x != nil {
-		return x.Username
-	}
-	return ""
-}
-
-func (x *UserChangePasswordRequest) GetPassword() string {
-	if x != nil {
-		return x.Password
-	}
-	return ""
-}
-
-func (x *UserChangePasswordRequest) GetToken() string {
-	if x != nil {
-		return x.Token
-	}
-	return ""
-}
-
-type AuthenticateRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Signature     string                 `protobuf:"bytes,1,opt,name=signature,proto3" json:"signature,omitempty"` // Token for authentication
-	Timestamp     string                 `protobuf:"bytes,2,opt,name=timestamp,proto3" json:"timestamp,omitempty"` // Timestamp for the request
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *AuthenticateRequest) Reset() {
-	*x = AuthenticateRequest{}
-	mi := &file_grpc_picovpnd_proto_msgTypes[7]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *AuthenticateRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AuthenticateRequest) ProtoMessage() {}
-
-func (x *AuthenticateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_grpc_picovpnd_proto_msgTypes[7]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AuthenticateRequest.ProtoReflect.Descriptor instead.
-func (*AuthenticateRequest) Descriptor() ([]byte, []int) {
-	return file_grpc_picovpnd_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *AuthenticateRequest) GetSignature() string {
-	if x != nil {
-		return x.Signature
-	}
-	return ""
-}
-
-func (x *AuthenticateRequest) GetTimestamp() string {
-	if x != nil {
-		return x.Timestamp
-	}
-	return ""
-}
-
 var File_grpc_picovpnd_proto protoreflect.FileDescriptor
 
 const file_grpc_picovpnd_proto_rawDesc = "" +
 	"\n" +
-	"\x13grpc/picovpnd.proto\x12\n" +
-	"helloworld\"\"\n" +
-	"\fCertResponse\x12\x12\n" +
-	"\x04cert\x18\x01 \x01(\tR\x04cert\"^\n" +
+	"\x13grpc/picovpnd.proto\x12\bpicopvnd\"H\n" +
 	"\x0eUserAddRequest\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x14\n" +
-	"\x05token\x18\x03 \x01(\tR\x05token\" \n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\" \n" +
 	"\bResponse\x12\x14\n" +
-	"\x05error\x18\x01 \x01(\tR\x05error\"C\n" +
+	"\x05error\x18\x01 \x01(\tR\x05error\"-\n" +
 	"\x0fUserLockRequest\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\x12\x14\n" +
-	"\x05token\x18\x03 \x01(\tR\x05token\"E\n" +
+	"\busername\x18\x01 \x01(\tR\busername\"/\n" +
 	"\x11UserUnlockRequest\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\x12\x14\n" +
-	"\x05token\x18\x03 \x01(\tR\x05token\"E\n" +
+	"\busername\x18\x01 \x01(\tR\busername\"/\n" +
 	"\x11UserDeleteRequest\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\x12\x14\n" +
-	"\x05token\x18\x03 \x01(\tR\x05token\"i\n" +
-	"\x19UserChangePasswordRequest\x12\x1a\n" +
-	"\busername\x18\x01 \x01(\tR\busername\x12\x1a\n" +
-	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x14\n" +
-	"\x05token\x18\x03 \x01(\tR\x05token\"Q\n" +
-	"\x13AuthenticateRequest\x12\x1c\n" +
-	"\tsignature\x18\x01 \x01(\tR\tsignature\x12\x1c\n" +
-	"\ttimestamp\x18\x02 \x01(\tR\ttimestamp2\xbb\x03\n" +
-	"\x12OpenConnectService\x12=\n" +
-	"\aUserAdd\x12\x1a.helloworld.UserAddRequest\x1a\x14.helloworld.Response\"\x00\x12?\n" +
-	"\bUserLock\x12\x1b.helloworld.UserLockRequest\x1a\x14.helloworld.Response\"\x00\x12C\n" +
+	"\busername\x18\x01 \x01(\tR\busername2\x8e\x02\n" +
+	"\x12OpenConnectService\x129\n" +
+	"\aUserAdd\x12\x18.picopvnd.UserAddRequest\x1a\x12.picopvnd.Response\"\x00\x12;\n" +
+	"\bUserLock\x12\x19.picopvnd.UserLockRequest\x1a\x12.picopvnd.Response\"\x00\x12?\n" +
 	"\n" +
-	"UserUnlock\x12\x1d.helloworld.UserUnlockRequest\x1a\x14.helloworld.Response\"\x00\x12C\n" +
+	"UserUnlock\x12\x1b.picopvnd.UserUnlockRequest\x1a\x12.picopvnd.Response\"\x00\x12?\n" +
 	"\n" +
-	"UserDelete\x12\x1d.helloworld.UserDeleteRequest\x1a\x14.helloworld.Response\"\x00\x12S\n" +
-	"\x12UserChangePassword\x12%.helloworld.UserChangePasswordRequest\x1a\x14.helloworld.Response\"\x00\x12F\n" +
-	"\aGetCert\x12\x1f.helloworld.AuthenticateRequest\x1a\x18.helloworld.CertResponse\"\x00B+Z)github.com/anatolio-deb/picovpnd/picovpndb\x06proto3"
+	"UserDelete\x12\x1b.picopvnd.UserDeleteRequest\x1a\x12.picopvnd.Response\"\x00B+Z)github.com/anatolio-deb/picovpnd/picovpndb\x06proto3"
 
 var (
 	file_grpc_picovpnd_proto_rawDescOnce sync.Once
@@ -489,32 +285,25 @@ func file_grpc_picovpnd_proto_rawDescGZIP() []byte {
 	return file_grpc_picovpnd_proto_rawDescData
 }
 
-var file_grpc_picovpnd_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_grpc_picovpnd_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_grpc_picovpnd_proto_goTypes = []any{
-	(*CertResponse)(nil),              // 0: helloworld.CertResponse
-	(*UserAddRequest)(nil),            // 1: helloworld.UserAddRequest
-	(*Response)(nil),                  // 2: helloworld.Response
-	(*UserLockRequest)(nil),           // 3: helloworld.UserLockRequest
-	(*UserUnlockRequest)(nil),         // 4: helloworld.UserUnlockRequest
-	(*UserDeleteRequest)(nil),         // 5: helloworld.UserDeleteRequest
-	(*UserChangePasswordRequest)(nil), // 6: helloworld.UserChangePasswordRequest
-	(*AuthenticateRequest)(nil),       // 7: helloworld.AuthenticateRequest
+	(*UserAddRequest)(nil),    // 0: picopvnd.UserAddRequest
+	(*Response)(nil),          // 1: picopvnd.Response
+	(*UserLockRequest)(nil),   // 2: picopvnd.UserLockRequest
+	(*UserUnlockRequest)(nil), // 3: picopvnd.UserUnlockRequest
+	(*UserDeleteRequest)(nil), // 4: picopvnd.UserDeleteRequest
 }
 var file_grpc_picovpnd_proto_depIdxs = []int32{
-	1, // 0: helloworld.OpenConnectService.UserAdd:input_type -> helloworld.UserAddRequest
-	3, // 1: helloworld.OpenConnectService.UserLock:input_type -> helloworld.UserLockRequest
-	4, // 2: helloworld.OpenConnectService.UserUnlock:input_type -> helloworld.UserUnlockRequest
-	5, // 3: helloworld.OpenConnectService.UserDelete:input_type -> helloworld.UserDeleteRequest
-	6, // 4: helloworld.OpenConnectService.UserChangePassword:input_type -> helloworld.UserChangePasswordRequest
-	7, // 5: helloworld.OpenConnectService.GetCert:input_type -> helloworld.AuthenticateRequest
-	2, // 6: helloworld.OpenConnectService.UserAdd:output_type -> helloworld.Response
-	2, // 7: helloworld.OpenConnectService.UserLock:output_type -> helloworld.Response
-	2, // 8: helloworld.OpenConnectService.UserUnlock:output_type -> helloworld.Response
-	2, // 9: helloworld.OpenConnectService.UserDelete:output_type -> helloworld.Response
-	2, // 10: helloworld.OpenConnectService.UserChangePassword:output_type -> helloworld.Response
-	0, // 11: helloworld.OpenConnectService.GetCert:output_type -> helloworld.CertResponse
-	6, // [6:12] is the sub-list for method output_type
-	0, // [0:6] is the sub-list for method input_type
+	0, // 0: picopvnd.OpenConnectService.UserAdd:input_type -> picopvnd.UserAddRequest
+	2, // 1: picopvnd.OpenConnectService.UserLock:input_type -> picopvnd.UserLockRequest
+	3, // 2: picopvnd.OpenConnectService.UserUnlock:input_type -> picopvnd.UserUnlockRequest
+	4, // 3: picopvnd.OpenConnectService.UserDelete:input_type -> picopvnd.UserDeleteRequest
+	1, // 4: picopvnd.OpenConnectService.UserAdd:output_type -> picopvnd.Response
+	1, // 5: picopvnd.OpenConnectService.UserLock:output_type -> picopvnd.Response
+	1, // 6: picopvnd.OpenConnectService.UserUnlock:output_type -> picopvnd.Response
+	1, // 7: picopvnd.OpenConnectService.UserDelete:output_type -> picopvnd.Response
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -531,7 +320,7 @@ func file_grpc_picovpnd_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_grpc_picovpnd_proto_rawDesc), len(file_grpc_picovpnd_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
